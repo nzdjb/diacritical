@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "wikipedia-correction-suggester"
+version = "0.1.0"
+description = ""
+authors = ["nzdjb <github@2a1b.com>"]
+readme = "README.md"
+packages = [{include = "wikipedia_correction_suggester"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pwiki = "^1.2.0"
+pywikibot = "^7.7.2"
+wikitextparser = "^0.51.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
