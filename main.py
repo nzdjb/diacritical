@@ -13,6 +13,8 @@ for config_name in listdir(config_path):
 
 site = Site("en", "wikipedia")
 for name, config in configs.items():
+    if config.get("skip", False):
+        continue
     print(f"{name}:")
     i = 0
     results = site.search(config["lookup_pattern"], namespaces=[0], content=True)
