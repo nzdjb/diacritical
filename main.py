@@ -30,5 +30,6 @@ for name, config in configs.items():
         if len(groups) > 0:
             i = i + 1
             print(f"{result.title()}: {result.full_url()}")
-            print(groups)
+            if config.get("print_groups", False):
+                print(groups)
     print(f"{i} articles with potential misspellings found.")
