@@ -19,10 +19,10 @@ for name, config in configs.items():
     i = 0
     results = site.search(config["lookup_pattern"], namespaces=[0], content=True)
     for result in results:
-        if str(result.title()) in config["ignored_pages"]:
+        if str(result.title()) in config.get("ignored_pages", []):
             continue
         content = result.get()
-        for pattern in config["ignored_patterns"]:
+        for pattern in config.get("ignored_patterns", []):
             content = sub(pattern, "", content, flags=IGNORECASE)
         groups = findall(
             ".{0,20}" + config["lookup_pattern"] + ".{0,20}", content, flags=IGNORECASE
