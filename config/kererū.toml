@@ -1,5 +1,5 @@
 ["Kererū"]
-lookup_pattern = "kereru"
+skip = false
 ignored_patterns = [
   "Kereru-?Symes",
   "Count Kereru",

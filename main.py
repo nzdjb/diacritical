@@ -2,6 +2,7 @@ from pywikibot import Site
 from re import findall, sub, IGNORECASE
 from tomllib import load
 from os import listdir, path
+from unidecode import unidecode
 
 configs = {}
 config_path = "config"
@@ -17,7 +18,8 @@ for name, config in configs.items():
         continue
     print(f"{name}:")
     i = 0
-    results = site.search(config["lookup_pattern"], namespaces=[0], content=True)
+    lookup_pattern = unidecode(name).lower()
+    results = site.search(lookup_pattern, namespaces=[0], content=True)
     for result in results:
         if str(result.title()) in config.get("ignored_pages", []):
             continue
@@ -25,7 +27,7 @@ for name, config in configs.items():
         for pattern in config.get("ignored_patterns", []):
             content = sub(pattern, "", content, flags=IGNORECASE)
         groups = findall(
-            ".{0,20}" + config["lookup_pattern"] + ".{0,20}", content, flags=IGNORECASE
+            ".{0,20}" + lookup_pattern + ".{0,20}", content, flags=IGNORECASE
         )
         if len(groups) > 0:
             i = i + 1
