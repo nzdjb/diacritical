@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "wikipedia-correction-suggester"
+name = "diacritical"
 version = "0.1.0"
 description = ""
 authors = ["nzdjb <github@2a1b.com>"]
 readme = "README.md"
-packages = [{include = "wikipedia_correction_suggester"}]
+# packages = [{include = "diacritical"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
