@@ -3,14 +3,12 @@ from re import findall, sub, IGNORECASE
 from tomllib import load
 from os import listdir, path
 from unidecode import unidecode
+from diacritical.config import Config
 
-configs = {}
 config_path = "config"
-for config_name in listdir(config_path):
-    with open(path.join(config_path, config_name), "rb") as f:
-        toml = load(f)
-        for name, config in toml.items():
-            configs[name] = config
+config = Config()
+config.load_config_dir(config_path)
+configs = config.config
 
 site = Site("en", "wikipedia")
 for name, config in configs.items():
