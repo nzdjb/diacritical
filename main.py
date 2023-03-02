@@ -4,20 +4,20 @@ from tomllib import load
 from os import listdir, path
 from unidecode import unidecode
 from diacritical.config import Config
+from diacritical.search import Search
 
 config_path = "config"
 config = Config()
 config.load_config_dir(config_path)
 configs = config.config
 
-site = Site("en", "wikipedia")
+site = Search()
 for name, config in configs.items():
     if config.get("skip", False):
         continue
     print(f"{name}:")
     i = 0
-    lookup_pattern = unidecode(name).lower()
-    results = site.search(lookup_pattern, namespaces=[0], content=True)
+    results = site.search(name)
     for result in results:
         if str(result.title()) in config.get("ignored_pages", []):
             continue
@@ -25,7 +25,7 @@ for name, config in configs.items():
         for pattern in config.get("ignored_patterns", []):
             content = sub(pattern, "", content, flags=IGNORECASE)
         groups = findall(
-            ".{0,20}" + lookup_pattern + ".{0,20}", content, flags=IGNORECASE
+            ".{0,20}" + unidecode(name) + ".{0,20}", content, flags=IGNORECASE
         )
         if len(groups) > 0:
             i = i + 1
