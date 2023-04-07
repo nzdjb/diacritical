@@ -1,7 +1,4 @@
-from pywikibot import Site
 from re import findall, sub, IGNORECASE
-from tomllib import load
-from os import listdir, path
 from unidecode import unidecode
 from diacritical.config import Config
 from diacritical.search import Search
