@@ -8,14 +8,17 @@ config = Config()
 config.load_config_dir(config_path)
 configs = config.config
 
+# TODO: Improve CLI.
+# TODO: Improve output.
+
 site = Search()
-for name, config in configs.items():
-    if config.get("skip", False):
+for name, config in configs.items():  # TODO: Fix shadowing.
+    if config.get("skip", False):  # TODO: Move to fields.
         continue
     print(f"{name}:")
     i = 0
     results = site.search(name)
-    for result in results:
+    for result in results:  # TODO: Multithread, create processing class.
         if str(result.title()) in config.get("ignored_pages", []):
             continue
         content = result.get()
