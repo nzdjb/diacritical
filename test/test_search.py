@@ -3,6 +3,7 @@ from unittest.mock import Mock
 from pywikibot import Site
 from diacritical.search import Search
 
+
 class TestSearch(TestCase):
     def test_construct_search(self):
         s = Search()
@@ -19,6 +20,6 @@ class TestSearch(TestCase):
         sm.return_value = []
         m.search = sm
         s = Search(m)
-        result = s.search('test')
-        sm.assert_called_once_with('test', namespaces=[0], content=True)
+        result = s.search("test")
+        sm.assert_called_once_with("test", namespaces=[0], content=True)
         self.assertEqual(result, [])
