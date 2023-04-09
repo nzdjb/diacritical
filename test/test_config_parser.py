@@ -36,3 +36,21 @@ class TestConfigParser(TestCase):
         self.assertEqual(c.config["empty"], {})
         self.assertEqual(c, loaded)
 
+    def test_load_config_chained(self):
+        c = ConfigParser()
+        c.load_config("test/config/test.toml")
+        loaded = c.load_config("test/config/empty.toml")
+        self.assertCountEqual(c.config.keys(), ["test", "empty"])
+        self.assertEqual(
+            c.config["test"],
+            {
+                "skip": True,
+            },
+        )
+        self.assertEqual(c.config["empty"], {})
+        self.assertEqual(c, loaded)
+
+
+class TestConfig(TestCase):
+    def test_construct_config(self):
+        pass
