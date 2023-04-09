@@ -19,12 +19,13 @@ class TestConfigParser(TestCase):
 
     def test_load_empty_config(self):
         c = ConfigParser()
-        c.load_config("test/config/empty.toml")
+        loaded = c.load_config("test/config/empty.toml")
         self.assertEqual(c.config["empty"], {})
+        self.assertEqual(c, loaded)
 
     def test_load_config_dir(self):
         c = ConfigParser()
-        c.load_config_dir("test/config")
+        loaded = c.load_config_dir("test/config")
         self.assertCountEqual(c.config.keys(), ["test", "empty"])
         self.assertEqual(
             c.config["test"],
@@ -33,3 +34,5 @@ class TestConfigParser(TestCase):
             },
         )
         self.assertEqual(c.config["empty"], {})
+        self.assertEqual(c, loaded)
+

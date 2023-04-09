@@ -11,7 +11,9 @@ class ConfigParser:
             toml = load(f)
             for key, value in toml.items():
                 self.config[key] = value
+        return self
 
     def load_config_dir(self, path):
         for config in os.listdir(path):
             self.load_config(os.path.join(path, config))
+        return self
