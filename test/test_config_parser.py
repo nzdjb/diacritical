@@ -26,7 +26,7 @@ class TestConfigParser(TestCase):
     def test_load_config_dir(self):
         c = ConfigParser()
         loaded = c.load_config_dir("test/config")
-        self.assertCountEqual(c.config.keys(), ["test", "empty"])
+        self.assertCountEqual(c.config.keys(), ["test", "empty", "test2"])
         self.assertEqual(
             c.config["test"],
             {
