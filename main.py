@@ -1,10 +1,10 @@
 from re import findall, sub, IGNORECASE
 from unidecode import unidecode
-from diacritical.config import Config
+from diacritical.config_parser import ConfigParser
 from diacritical.search import Search
 
 config_path = "config"
-config = Config()
+config = ConfigParser()
 config.load_config_dir(config_path)
 configs = config.config
 

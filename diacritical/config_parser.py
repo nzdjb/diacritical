@@ -1,12 +1,13 @@
 from tomllib import load
 import os
 
-class Config:
+
+class ConfigParser:
     def __init__(self):
         self.config = {}
 
     def load_config(self, path):
-        with open(path, 'rb') as f:
+        with open(path, "rb") as f:
             toml = load(f)
             for key, value in toml.items():
                 self.config[key] = value
