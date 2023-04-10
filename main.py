@@ -4,15 +4,13 @@ from diacritical.config_parser import ConfigParser
 from diacritical.search import Search
 
 config_path = "config"
-config = ConfigParser()
-config.load_config_dir(config_path)
-configs = config.config
+configs = ConfigParser().load_config_dir(config_path).config
 
 # TODO: Improve CLI.
 # TODO: Improve output.
 
 site = Search()
-for name, config in configs.items():  # TODO: Fix shadowing.
+for name, config in configs.items():
     if config.skip:
         continue
     print(f"{name}:")
