@@ -10,12 +10,12 @@ configs = ConfigParser().load_config_dir(config_path).config
 # TODO: Improve output.
 
 site = Search()
-for name, config in configs.items():
+for config in configs.values():
     if config.skip:
         continue
-    print(f"{name}:")
+    print(f"{config.name}:")
     i = 0
-    results = site.search(name)
+    results = site.search(config.name)
     for result in results:  # TODO: Multithread, create processing class.
         if str(result.title()) in config.ignored_pages:
             continue
@@ -23,7 +23,7 @@ for name, config in configs.items():
         for pattern in config.ignored_patterns:
             content = sub(pattern, "", content, flags=IGNORECASE)
         groups = findall(
-            ".{0,20}" + unidecode(name) + ".{0,20}", content, flags=IGNORECASE
+            ".{0,20}" + unidecode(config.name) + ".{0,20}", content, flags=IGNORECASE
         )
         if len(groups) > 0:
             i = i + 1
