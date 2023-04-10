@@ -13,16 +13,16 @@ configs = config.config
 
 site = Search()
 for name, config in configs.items():  # TODO: Fix shadowing.
-    if config.get("skip", False):  # TODO: Move to fields.
+    if config.skip:
         continue
     print(f"{name}:")
     i = 0
     results = site.search(name)
     for result in results:  # TODO: Multithread, create processing class.
-        if str(result.title()) in config.get("ignored_pages", []):
+        if str(result.title()) in config.ignored_pages:
             continue
         content = result.get()
-        for pattern in config.get("ignored_patterns", []):
+        for pattern in config.ignored_patterns:
             content = sub(pattern, "", content, flags=IGNORECASE)
         groups = findall(
             ".{0,20}" + unidecode(name) + ".{0,20}", content, flags=IGNORECASE
@@ -30,6 +30,4 @@ for name, config in configs.items():  # TODO: Fix shadowing.
         if len(groups) > 0:
             i = i + 1
             print(f"{result.title()}: {result.full_url()}")
-            if config.get("print_groups", False):
-                print(groups)
     print(f"{i} articles with potential misspellings found.")
