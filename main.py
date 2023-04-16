@@ -1,7 +1,6 @@
-from re import findall, sub, IGNORECASE
-from unidecode import unidecode
 from diacritical.config_parser import ConfigParser
 from diacritical.search import Search
+from diacritical.page_parser import PageParser
 
 config_path = "config"
 configs = ConfigParser().load_config_dir(config_path).config
@@ -16,16 +15,9 @@ for config in configs.values():
     print(f"{config.name}:")
     i = 0
     results = site.search(config.name)
-    for result in results:  # TODO: Multithread, create processing class.
-        if str(result.title()) in config.ignored_pages:
-            continue
-        content = result.get()
-        for pattern in config.ignored_patterns:
-            content = sub(pattern, "", content, flags=IGNORECASE)
-        groups = findall(
-            ".{0,20}" + unidecode(config.name) + ".{0,20}", content, flags=IGNORECASE
-        )
-        if len(groups) > 0:
+    for result in results:  # TODO: Multithread.
+        parser = PageParser(config, result)
+        if parser.candidate():
             i = i + 1
             print(f"{result.title()}: {result.full_url()}")
     print(f"{i} articles with potential misspellings found.")
