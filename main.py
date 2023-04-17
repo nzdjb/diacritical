@@ -1,6 +1,7 @@
 from diacritical.config_parser import ConfigParser
 from diacritical.search import Search
 from diacritical.page_parser import PageParser
+from functools import reduce
 
 config_path = "config"
 configs = ConfigParser().load_config_dir(config_path).config
@@ -13,11 +14,12 @@ for config in configs.values():
     if config.skip:
         continue
     print(f"{config.name}:")
-    i = 0
     results = site.search(config.name)
-    for result in results:  # TODO: Multithread.
-        parser = PageParser(config, result)
-        if parser.candidate():
-            i = i + 1
-            print(f"{result.title()}: {result.full_url()}")
-    print(f"{i} articles with potential misspellings found.")
+    candidates = map(
+        lambda result: PageParser(config, result).candidate() and result or False,
+        results,
+    )
+    candidates = reduce(lambda acc, i: acc + (i and [i] or []), candidates, [])
+    for c in candidates:
+        print(f"{c.title()}: {c.full_url()}")
+    print(f"{len(candidates)} articles with potential misspellings found.")
