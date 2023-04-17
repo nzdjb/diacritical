@@ -15,11 +15,33 @@ class TestSearch(TestCase):
         self.assertEqual(s._site, m)
 
     def test_search(self):
-        m = Mock()
-        sm = Mock()
-        sm.return_value = []
-        m.search = sm
-        s = Search(m)
+        sm = Mock(return_value=[])
+        s = Search(Mock(search=sm))
         result = s.search("test")
         sm.assert_called_once_with("test", namespaces=[0], content=True)
-        self.assertEqual(result, [])
+        self.assertEqual(result, set())
+
+    def test_search_unique_results(self):
+        class PageDouble:
+            def __init__(self, title):
+                self._title = title
+
+            def title(self):
+                return self._title
+
+            def __eq__(self, __value: object) -> bool:
+                return self._title == __value.title()
+
+            def __hash__(self) -> int:
+                return 0
+
+        rv = [
+            PageDouble("a"),
+            PageDouble("c"),
+            PageDouble("b"),
+            PageDouble("c"),
+            PageDouble("a"),
+        ]
+        sm = Mock(return_value=rv)
+        s = Search(Mock(search=sm))
+        self.assertEqual({r.title() for r in s.search("test")}, {"a", "b", "c"})
