@@ -2,8 +2,6 @@
 skip = false
 ignored_patterns = [
   "Kereru-?Symes",
-  "Count Kereru",
-  "Kereru Station",
   "Te Kereru",
   "Kereru School",
   "Kereru Publishing",
@@ -12,7 +10,6 @@ ignored_patterns = [
   "Kereru Geyser",
   "Kereru Lane",
   "Kereru Brewing",
-  "Princess Kereru",
   "\\[\\[Kereru \\(place\\)\\|Kereru\\]\\]",
   "File:Kereru",
   "Image:Kereru",
@@ -25,16 +22,8 @@ ignored_patterns = [
   "title=Kereru",
 ]
 ignored_pages = [
-  "Wellington and Manawatu Railway Company",
-  "North Island Main Trunk",
-  "Caroline Freeman College, Otago",
-  "Ruatoki",
-  "William Royse",
-  "Reremoana Primary School",
-  "Rosehill, New Zealand",
-  "Koputaroa railway station",
+  "Rosehill, New Zealand", # Citations.
   "List of villages in Ogun State",
-  "Kapiti Coast Airport",
   "Kākā",
   "Aristotelia serrata",
   "Kererū",
