@@ -2,6 +2,7 @@ from unittest import TestCase
 from unittest.mock import Mock
 from diacritical.page_parser import PageParser
 from diacritical.config_parser import Config
+from parameterized import parameterized
 
 
 class TestPage(TestCase):
@@ -65,5 +66,29 @@ class TestPage(TestCase):
         config = Config("tēst", {"ignored_patterns": ["latest"]})
         result = Mock()
         result.get.return_value = "latest tēst Latest"
+        p = PageParser(config, result)
+        self.assertFalse(p.candidate())
+
+    @parameterized.expand(
+        [
+            "{{Not a typo|test}}",
+            "{{not a typo|test}}",
+            "{{As written|test}}",
+            "{{as written|test}}",
+            "{{Proper name|test}}",
+            "{{proper name|test}}",
+            "{{Typo|test}}",
+            "{{typo|test}}",
+            "{{Chem name|test}}",
+            "{{chem name|test}}",
+            "{{sic|test}}",
+            "{{Sic|test}}",
+            "{{    Not a typo   |test}}",
+        ]
+    )
+    def test_candidate_not_a_typo(self, rv):
+        config = Config("tēst")
+        result = Mock()
+        result.get.return_value = rv
         p = PageParser(config, result)
         self.assertFalse(p.candidate())
