@@ -9,7 +9,6 @@ ignored_patterns = [
   "Kereru Numia",
   "Kereru Geyser",
   "Kereru Lane",
-  "Kereru Brewing",
   "\\[\\[Kereru \\(place\\)\\|Kereru\\]\\]",
   "File:Kereru",
   "Image:Kereru",
