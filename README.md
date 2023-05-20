@@ -13,7 +13,7 @@ $ poetry install
 Run the tool:
 
 ```bash
-$ poetry run python main.py
+$ poetry run diacritical
 ```
 
 Example output:

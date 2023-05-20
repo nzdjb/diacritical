@@ -6,6 +6,9 @@ authors = ["nzdjb <github@2a1b.com>"]
 readme = "README.md"
 packages = [{include = "diacritical"}]
 
+[tool.poetry.scripts]
+diacritical = 'main:cli'
+
 [tool.poetry.dependencies]
 python = "^3.11"
 pwiki = "^1.2.0"
