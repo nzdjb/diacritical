@@ -37,3 +37,14 @@ skip = true # Whether to skip processing the word. (optional, default: false)
 ignored_patterns = ["Kereru-?Symes", "Count Kereru"] # A list of patterns to ignore. (optional, default: empty list)
 ignored_pages = ["Wellington and Manawatu Railway Company"] # A list of pages to ignore. (optional, default: empty list)
 ```
+
+## Developing
+
+Run the linting and testing tools as follows:
+
+```bash
+$ poetry run black --check .
+$ poetry run flake8
+$ poetry run coverage run --branch -m unittest
+$ poetry run coverage report --fail-under 100
+```
