@@ -74,3 +74,18 @@ class TestConfig(TestCase):
         self.assertEqual(c.skip, True)
         self.assertEqual(c.ignored_pages, ["test"])
         self.assertEqual(c.ignored_patterns, ["test"])
+
+    def test_equality(self):
+        c1 = Config("Tēst", {"skip": True, "ignored_pages": ["test"], "ignored_patterns": ["test"]})
+        c2 = Config("Tēst", {"skip": True, "ignored_pages": ["test"], "ignored_patterns": ["test"]})
+        self.assertEqual(c1, c2)
+        c2 = Config("Test", {"skip": True, "ignored_pages": ["test"], "ignored_patterns": ["test"]})
+        self.assertNotEqual(c1, c2)
+        c2 = Config("Tēst", {"skip": False, "ignored_pages": ["test"], "ignored_patterns": ["test"]})
+        self.assertNotEqual(c1, c2)
+        c2 = Config("Tēst", {"skip": True, "ignored_pages": ["test", "test2"], "ignored_patterns": ["test"]})
+        self.assertNotEqual(c1, c2)
+        c2 = Config("Tēst", {"skip": True, "ignored_pages": ["test"], "ignored_patterns": ["test", "test2"]})
+        self.assertNotEqual(c1, c2)
+        c2 = "test"
+        self.assertNotEqual(c1, c2)
