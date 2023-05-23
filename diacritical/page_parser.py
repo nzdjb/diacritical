@@ -36,7 +36,7 @@ class PageParser:
             ]
         )
         content = sub(
-            f"{{{{\s*(?:{excluded_templates})\s*\|{self.normal_name}}}}}",
+            rf"{{{{\s*(?:{excluded_templates})\s*\|{self.normal_name}}}}}",
             "",
             content,
             flags=IGNORECASE,
@@ -50,7 +50,7 @@ class PageParser:
 
     def _remove_urls(self, content) -> str:
         content = sub(
-            "url\s*=\s*\S*\s*[}|]",
+            r"url\s*=\s*\S*\s*[}|]",
             "",
             content,
             flags=IGNORECASE,

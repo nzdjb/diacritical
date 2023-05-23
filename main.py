@@ -3,6 +3,7 @@ from diacritical.search import Search
 from diacritical.page_parser import PageParser
 from functools import reduce
 
+
 def cli():
     config_path = "config"
     configs = ConfigParser().load_config_dir(config_path).config
@@ -25,5 +26,6 @@ def cli():
             print(f"{c.title()}: {c.full_url()}")
         print(f"{len(candidates)} articles with potential misspellings found.")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     cli()
