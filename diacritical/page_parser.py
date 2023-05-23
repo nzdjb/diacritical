@@ -8,14 +8,21 @@ class PageParser:
     def __init__(self, config: Config, page: Page) -> None:
         self.config = config
         self.page = page
+        self.normal_name = unidecode(self.config.name)
 
     def candidate(self) -> bool:
-        normal_name = unidecode(self.config.name)
         if self._page_ignored():
             return False
         content = self.page.get()
-        for pattern in self.config.ignored_patterns:
-            content = sub(pattern, "", content, flags=IGNORECASE)
+        content = self._remove_ignored_patterns(content)
+        content = self._remove_excluded_templates(content)
+        groups = findall(self.normal_name, content, flags=IGNORECASE)
+        return len(groups) > 0
+
+    def _page_ignored(self) -> bool:
+        return str(self.page.title()) in self.config.ignored_pages
+
+    def _remove_excluded_templates(self, content) -> str:
         excluded_templates = "|".join(
             [
                 "Proper name",
@@ -28,13 +35,14 @@ class PageParser:
             ]
         )
         content = sub(
-            f"{{{{\s*(?:{excluded_templates})\s*\|{normal_name}}}}}",
+            f"{{{{\s*(?:{excluded_templates})\s*\|{self.normal_name}}}}}",
             "",
             content,
             flags=IGNORECASE,
         )
-        groups = findall(normal_name, content, flags=IGNORECASE)
-        return len(groups) > 0
+        return content
 
-    def _page_ignored(self) -> bool:
-        return str(self.page.title()) in self.config.ignored_pages
+    def _remove_ignored_patterns(self, content) -> str:
+        for pattern in self.config.ignored_patterns:
+            content = sub(pattern, "", content, flags=IGNORECASE)
+        return content
