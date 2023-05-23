@@ -92,3 +92,17 @@ class TestPage(TestCase):
         result.get.return_value = rv
         p = PageParser(config, result)
         self.assertFalse(p.candidate())
+
+    @parameterized.expand(
+        [
+            "{{cite web |url=https://example.com/test|title=Tēst}}",
+            "{{cite web |url=https://example.com/test}}",
+            "{{cite web |url=https://test.example.com/test|Stuff}}",
+        ]
+    )
+    def test_ignore_urls(self, rv):
+        config = Config("tēst")
+        result = Mock()
+        result.get.return_value = rv
+        p = PageParser(config, result)
+        self.assertFalse(p.candidate())

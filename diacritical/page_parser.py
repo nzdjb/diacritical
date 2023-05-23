@@ -16,6 +16,7 @@ class PageParser:
         content = self.page.get()
         content = self._remove_ignored_patterns(content)
         content = self._remove_excluded_templates(content)
+        content = self._remove_urls(content)
         groups = findall(self.normal_name, content, flags=IGNORECASE)
         return len(groups) > 0
 
@@ -45,4 +46,13 @@ class PageParser:
     def _remove_ignored_patterns(self, content) -> str:
         for pattern in self.config.ignored_patterns:
             content = sub(pattern, "", content, flags=IGNORECASE)
+        return content
+
+    def _remove_urls(self, content) -> str:
+        content = sub(
+            "url\s*=\s*\S*\s*[}|]",
+            "",
+            content,
+            flags=IGNORECASE,
+        )
         return content
