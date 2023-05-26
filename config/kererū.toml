@@ -21,10 +21,7 @@ ignored_patterns = [
   "title=Kereru",
 ]
 ignored_pages = [
-  "Rosehill, New Zealand", # Citations.
-  "List of villages in Ogun State",
-  "Aristotelia serrata",
-  "Kererū",
-  "Flower",
-  "Endeavour Inlet",
+  "List of villages in Ogun State", # Valid other language use.
+  "Aristotelia serrata", # external link
+  "Kererū", # 41 matches
 ]
