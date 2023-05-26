@@ -3,7 +3,6 @@ skip = false
 ignored_patterns = [
   "Kereru-?Symes",
   "Te Kereru",
-  "Kereru School",
   "Kereru Publishing",
   "Kereru Park",
   "Kereru Numia",
@@ -14,11 +13,8 @@ ignored_patterns = [
   "Image:Kereru",
   "Numai Kereru",
   "Tipapa-Kereru",
-  "kererudiscovery",
   "Kereru[- ]crowned",
-  "Kereru Homestead",
   "image[0-9]? = Kereru",
-  "title=Kereru",
 ]
 ignored_pages = [
   "List of villages in Ogun State", # Valid other language use.
