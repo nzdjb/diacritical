@@ -32,7 +32,6 @@ class PageParser:
                 "As written",
                 "Typo",
                 "Chem name",
-                "Proper name",
             ]
         )
         content = sub(
